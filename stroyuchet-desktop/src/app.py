@@ -46,10 +46,7 @@ class StroyUchetApp:
         self._init_database()
         
         # Инициализация сервисов
-        self.auth_service = AuthService(self.db)
-        self.sales_service = SalesService(self.db)
-        self.reports_service = ReportsService(self.db, self.data_dir / 'exports')
-        self.backup_service = BackupService(self.db_path, self.data_dir / 'backups')
+        self._init_services()
         
         # Текущий пользователь
         self.current_user: Optional[Dict] = None
@@ -67,9 +64,16 @@ class StroyUchetApp:
         if not tables or 'users' not in tables:
             logger.info("Создание структуры базы данных...")
             self.models.create_all_tables()
-            
-            # Создание пользователя по умолчанию
-            self._create_default_user()
+    
+    def _init_services(self):
+        """Инициализация сервисов после создания БД"""
+        self.auth_service = AuthService(self.db)
+        self.sales_service = SalesService(self.db)
+        self.reports_service = ReportsService(self.db, self.data_dir / 'exports')
+        self.backup_service = BackupService(self.db_path, self.data_dir / 'backups')
+        
+        # Создание пользователя по умолчанию если БД пустая
+        self._create_default_user()
     
     def _create_default_user(self):
         """Создание пользователя admin по умолчанию"""
