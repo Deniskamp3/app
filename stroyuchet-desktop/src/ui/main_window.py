@@ -207,28 +207,84 @@ class MainWindow(ctk.CTkToplevel):
     
     def _show_customers(self):
         """Показать клиентов"""
-        self._set_section("Клиенты")
-        messagebox.showinfo("Инфо", "Модуль 'Клиенты' будет реализован в следующем обновлении")
+        for widget in self.main_frame.winfo_children():
+            widget.grid_forget()
+        
+        if not hasattr(self, 'customers_frame') or self.customers_frame is None:
+            from .customers_frame import CustomersFrame
+            self.customers_frame = CustomersFrame(
+                self.main_frame, 
+                self.app_controller.db_connection
+            )
+        
+        self.customers_frame.grid(row=0, column=0, sticky="nsew")
+        self.section_title.configure(text="Клиенты")
+        logger.info("Переход в раздел: Клиенты")
     
     def _show_sales(self):
         """Показать продажи"""
-        self._set_section("Продажи")
-        messagebox.showinfo("Инфо", "Модуль 'Продажи' будет реализован в следующем обновлении")
+        for widget in self.main_frame.winfo_children():
+            widget.grid_forget()
+        
+        if not hasattr(self, 'sales_frame') or self.sales_frame is None:
+            from .sales_frame import SalesFrame
+            self.sales_frame = SalesFrame(
+                self.main_frame, 
+                self.app_controller.db_connection
+            )
+        
+        self.sales_frame.grid(row=0, column=0, sticky="nsew")
+        self.section_title.configure(text="Продажи")
+        logger.info("Переход в раздел: Продажи")
     
     def _show_warehouse(self):
         """Показать склад"""
-        self._set_section("Склад")
-        messagebox.showinfo("Инфо", "Модуль 'Склад' будет реализован в следующем обновлении")
+        for widget in self.main_frame.winfo_children():
+            widget.grid_forget()
+        
+        if not hasattr(self, 'warehouse_frame') or self.warehouse_frame is None:
+            from .warehouse_frame import WarehouseFrame
+            self.warehouse_frame = WarehouseFrame(
+                self.main_frame, 
+                self.app_controller.db_connection
+            )
+        
+        self.warehouse_frame.grid(row=0, column=0, sticky="nsew")
+        self.section_title.configure(text="Склад")
+        logger.info("Переход в раздел: Склад")
     
     def _show_reports(self):
         """Показать отчёты"""
-        self._set_section("Отчёты")
-        messagebox.showinfo("Инфо", "Модуль 'Отчёты' будет реализован в следующем обновлении")
+        for widget in self.main_frame.winfo_children():
+            widget.grid_forget()
+        
+        if not hasattr(self, 'reports_frame') or self.reports_frame is None:
+            from .reports_frame import ReportsFrame
+            self.reports_frame = ReportsFrame(
+                self.main_frame, 
+                self.app_controller.db_connection
+            )
+        
+        self.reports_frame.grid(row=0, column=0, sticky="nsew")
+        self.section_title.configure(text="Отчёты")
+        logger.info("Переход в раздел: Отчёты")
     
     def _show_settings(self):
         """Показать настройки"""
-        self._set_section("Настройки")
-        messagebox.showinfo("Инфо", "Модуль 'Настройки' будет реализован в следующем обновлении")
+        for widget in self.main_frame.winfo_children():
+            widget.grid_forget()
+        
+        if not hasattr(self, 'settings_frame') or self.settings_frame is None:
+            from .settings_frame import SettingsFrame
+            self.settings_frame = SettingsFrame(
+                self.main_frame, 
+                self.app_controller.db_connection,
+                self.app_controller
+            )
+        
+        self.settings_frame.grid(row=0, column=0, sticky="nsew")
+        self.section_title.configure(text="Настройки")
+        logger.info("Переход в раздел: Настройки")
     
     def _on_logout(self):
         """Выход из системы"""
