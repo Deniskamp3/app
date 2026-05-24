@@ -70,8 +70,7 @@ class MainWindow(ctk.CTkToplevel):
                 self.sidebar,
                 text=text,
                 command=command,
-                anchor="w",
-                padx=20
+                anchor="w"
             )
             btn.grid(row=i, column=0, padx=10, pady=5, sticky="ew")
         
