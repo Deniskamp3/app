@@ -14,7 +14,10 @@ class MainWindow(ctk.CTkToplevel):
     """Главное окно приложения (как диалоговое окно)"""
     
     def __init__(self, app_controller, **kwargs):
-        super().__init__(app_controller.root, **kwargs)
+        # Извлекаем master из kwargs, чтобы избежать дублирования аргументов
+        master = kwargs.pop('master', None) or app_controller.root
+        
+        super().__init__(master=master, **kwargs)
         
         self.app_controller = app_controller
         self.current_user = None
