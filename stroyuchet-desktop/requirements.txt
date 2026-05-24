@@ -1,0 +1,9 @@
+customtkinter==5.2.2
+CTkMessagebox==2.5
+Pillow==10.0.1
+openpyxl==3.1.2
+reportlab==4.0.9
+matplotlib==3.7.4
+bcrypt==4.1.2
+cryptography==41.0.7
+pyinstaller==6.3.0
