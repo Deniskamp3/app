@@ -11,7 +11,7 @@ if getattr(sys, 'frozen', False):
     BASE_DIR = Path(sys._MEIPASS)
 else:
     # Запущен как скрипт
-    BASE_DIR = Path(__file__).parent
+    BASE_DIR = Path(__file__).parent.parent  # Возвращаемся на уровень выше (к корню проекта)
 
 sys.path.insert(0, str(BASE_DIR))
 
