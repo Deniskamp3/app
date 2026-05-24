@@ -7,6 +7,8 @@ from tkinter import messagebox
 from typing import Optional, Callable
 import logging
 
+from .products_frame import ProductsFrame
+
 logger = logging.getLogger(__name__)
 
 
@@ -120,6 +122,13 @@ class MainWindow(ctk.CTkToplevel):
             font=ctk.CTkFont(size=24)
         )
         self.content_label.grid(row=0, column=0, sticky="nsew")
+        
+        # Инициализация фреймов модулей
+        self._init_module_frames()
+    
+    def _init_module_frames(self):
+        """Инициализация фреймов модулей"""
+        self.products_frame = None  # Будет создан при первом открытии
     
     def _create_statusbar(self):
         """Создание строки состояния"""
@@ -152,25 +161,74 @@ class MainWindow(ctk.CTkToplevel):
     
     # Обработчики навигации
     def _on_dashboard(self):
-        self._set_section("Панель управления")
+        self._show_dashboard()
     
     def _on_products(self):
-        self._set_section("Каталог товаров")
+        self._show_products()
     
     def _on_customers(self):
-        self._set_section("Клиенты")
+        self._show_customers()
     
     def _on_sales(self):
-        self._set_section("Продажи")
+        self._show_sales()
     
     def _on_warehouse(self):
-        self._set_section("Склад")
+        self._show_warehouse()
     
     def _on_reports(self):
-        self._set_section("Отчёты")
+        self._show_reports()
     
     def _on_settings(self):
+        self._show_settings()
+    
+    def _show_dashboard(self):
+        """Показать панель управления"""
+        for widget in self.main_frame.winfo_children():
+            widget.grid_forget()
+        
+        self.content_label.grid(row=0, column=0, sticky="nsew")
+        self.section_title.configure(text="Панель управления")
+        self._set_section("Панель управления")
+    
+    def _show_products(self):
+        """Показать управление товарами"""
+        for widget in self.main_frame.winfo_children():
+            widget.grid_forget()
+        
+        if self.products_frame is None:
+            self.products_frame = ProductsFrame(
+                self.main_frame, 
+                self.app_controller.db_connection
+            )
+        
+        self.products_frame.grid(row=0, column=0, sticky="nsew")
+        self.section_title.configure(text="Каталог товаров")
+        logger.info("Переход в раздел: Товары")
+    
+    def _show_customers(self):
+        """Показать клиентов"""
+        self._set_section("Клиенты")
+        messagebox.showinfo("Инфо", "Модуль 'Клиенты' будет реализован в следующем обновлении")
+    
+    def _show_sales(self):
+        """Показать продажи"""
+        self._set_section("Продажи")
+        messagebox.showinfo("Инфо", "Модуль 'Продажи' будет реализован в следующем обновлении")
+    
+    def _show_warehouse(self):
+        """Показать склад"""
+        self._set_section("Склад")
+        messagebox.showinfo("Инфо", "Модуль 'Склад' будет реализован в следующем обновлении")
+    
+    def _show_reports(self):
+        """Показать отчёты"""
+        self._set_section("Отчёты")
+        messagebox.showinfo("Инфо", "Модуль 'Отчёты' будет реализован в следующем обновлении")
+    
+    def _show_settings(self):
+        """Показать настройки"""
         self._set_section("Настройки")
+        messagebox.showinfo("Инфо", "Модуль 'Настройки' будет реализован в следующем обновлении")
     
     def _on_logout(self):
         """Выход из системы"""
