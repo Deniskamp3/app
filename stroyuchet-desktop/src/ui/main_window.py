@@ -10,11 +10,11 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-class MainWindow(ctk.CTk):
-    """Главное окно приложения"""
+class MainWindow(ctk.CTkToplevel):
+    """Главное окно приложения (как диалоговое окно)"""
     
     def __init__(self, app_controller, **kwargs):
-        super().__init__(**kwargs)
+        super().__init__(app_controller.root, **kwargs)
         
         self.app_controller = app_controller
         self.current_user = None
@@ -174,6 +174,7 @@ class MainWindow(ctk.CTk):
         """Выход из системы"""
         if messagebox.askyesno("Выход", "Вы действительно хотите выйти?"):
             self.destroy()
+            self.app_controller.main_window = None
             self.app_controller.show_login()
     
     def _set_section(self, title: str):

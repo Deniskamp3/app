@@ -1,16 +1,1 @@
-```
-# Python
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-
-# Logs
-*.log
-
-# Database
-stroyuchet-desktop/data/database.db
-
-# Configuration (if it contains sensitive data)
-stroyuchet-desktop/data/config.ini
-```
+Nothing should be ignored based on the provided file changes. The only modified file is a Python source file (`stroyuchet-desktop/src/ui/main_window.py`), which should not be ignored.
